@@ -26,14 +26,12 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 ## Instalación
 
 Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
-
-### 1. Clona el repositorio de GitLab a tu máquina local:
-
-   ```bash
-   git clone https://gitlab.com/tu-usuario/nombre-del-repositorio.git
+```bash
+# 1. Clona el repositorio de GitLab a tu máquina local:
+git clone https://github.com/rgsarmiento/meseros.git meseros
 
 # 2. Accede al directorio del proyecto
-cd nombre-del-repositorio
+cd meseros
 
 # Instala las dependencias de PHP con Composer
 composer install
@@ -51,12 +49,25 @@ php artisan key:generate
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
-# DB_DATABASE=nombre_de_tu_base_de_datos
-# DB_USERNAME=tu_usuario
-# DB_PASSWORD=tu_contraseña
+# DB_DATABASE=meseros
+# DB_USERNAME=root
+# DB_PASSWORD=
 
 # Ejecuta las migraciones para crear las tablas en la base de datos
-php artisan migrate
+php artisan migrate --seed
 
-# Si deseas poblar la base de datos con datos de prueba, ejecuta el seed
-php artisan db:seed
+# Limpiar caché de la configuración
+php artisan config:clear
+
+# Limpiar caché de rutas:
+php artisan route:clear
+
+# Limpiar caché de vistas:
+php artisan view:clear
+
+# Limpiar caché de la aplicación:
+php artisan cache:clear
+
+# Asignar permisos a las carpetas storage y bootstrap/cache:
+sudo chmod -R 775 storage
+sudo chmod -R 775 bootstrap/cache
