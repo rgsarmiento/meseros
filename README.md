@@ -18,10 +18,9 @@ Esta es una aplicación de gestión de pedidos diseñada para restaurantes. Perm
 Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo siguiente:
 
 - **PHP >= 7.4**
-- **Composer**
-- **Node.js y npm** (para gestionar las dependencias de frontend)
-- **MySQL** (o cualquier otra base de datos compatible con Laravel)
-- **XAMPP** (si estás utilizando un entorno local de desarrollo)
+- **Composer** [https://getcomposer.org/](https://getcomposer.org/)
+- **Node.js y npm** (para gestionar las dependencias de frontend)[https://nodejs.org/es](https://nodejs.org/es)
+- **XAMPP** (si estás utilizando un entorno local)
 
 # Configuración del Proyecto con XAMPP
 
@@ -58,30 +57,35 @@ XAMPP es una herramienta que permite instalar un servidor local que incluye Apac
 
 1. Coloca los archivos del proyecto en la carpeta `htdocs` dentro de la carpeta de instalación de XAMPP. Por defecto, en Windows es:
 
-2. Clona tu repositorio dentro de esta carpeta o coloca el contenido del proyecto allí.
-
 ```bash
 cd C:\xampp\htdocs
+```
 
-# Clona el repositorio de GitLab a tu máquina local:
+2. Clona el repositorio de GitLab a tu máquina local:
+```bash
 git clone https://github.com/rgsarmiento/meseros.git meseros
-
-# Accede al directorio del proyecto
+```
+3. Accede al directorio del proyecto
+```bash
 cd meseros
-
-# Instala las dependencias de PHP con Composer
+```
+4. Instala las dependencias de PHP con Composer
+```bash
 composer install
-
-# Instala las dependencias de frontend con npm
+```
+5. Instala las dependencias de frontend con npm
+```bash
 npm install
-
-# Copia el archivo de configuración de ejemplo y crea el archivo .env
+```
+6. Copia el archivo de configuración de ejemplo y crea el archivo .env
+```bash
 cp .env.example .env
-
-# Genera una nueva clave de aplicación para Laravel
+```
+7. Genera una nueva clave de aplicación para Laravel
+```bash
 php artisan key:generate
-
-# Abre el archivo .env y configura tu base de datos en los siguientes valores
+```
+8. Abre el archivo .env y configura tu base de datos en los siguientes valores
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
