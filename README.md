@@ -25,6 +25,49 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 
 ## Instalación
 
+Instalación y Configuración de XAMPP
+Requisitos Previos
+Sistema Operativo: XAMPP está disponible para Windows, macOS y Linux.
+
+Espacio en Disco: Asegúrate de tener al menos 1GB de espacio disponible.
+
+1. Descargar XAMPP
+Visita la página oficial de XAMPP:
+
+https://www.apachefriends.org/es/index.html
+
+Selecciona la versión de XAMPP adecuada para tu sistema operativo (Windows, macOS, o Linux).
+
+2. Instalar XAMPP
+Una vez descargado el instalador, ábrelo para iniciar el proceso de instalación.
+
+Elige los componentes que desees instalar. Los componentes esenciales incluyen:
+
+Apache (servidor web).
+
+MySQL o MariaDB (base de datos).
+
+PHP (lenguaje de programación).
+
+Puedes desmarcar otros componentes si no los necesitas, como Perl, Mercury, etc.
+
+Selecciona la carpeta de destino donde deseas instalar XAMPP (por defecto es C:\xampp en Windows).
+
+Sigue las instrucciones del instalador y completa la instalación.
+
+3. Iniciar XAMPP
+Una vez instalado, abre el Panel de Control de XAMPP.
+
+Inicia los siguientes servicios:
+
+Apache: Servidor web para ejecutar aplicaciones PHP.
+
+MySQL: Base de datos para almacenar información.
+
+Puedes hacerlo simplemente haciendo clic en el botón Start correspondiente a cada servicio.
+
+Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
+
 Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
 ```bash
 # 1. Clona el repositorio de GitLab a tu máquina local:
