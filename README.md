@@ -25,6 +25,34 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 
 ## Instalación
 
-1. Clona el repositorio de GitLab a tu máquina local:
-   ```bash
-   git clone https://gitlab.com/tu-usuario/nombre-del-repositorio.git
+# Clona el repositorio de GitLab
+git clone https://gitlab.com/tu-usuario/nombre-del-repositorio.git
+
+# Accede al directorio del proyecto
+cd nombre-del-repositorio
+
+# Instala las dependencias de PHP con Composer
+composer install
+
+# Instala las dependencias de frontend con npm
+npm install
+
+# Copia el archivo de configuración de ejemplo y crea el archivo .env
+cp .env.example .env
+
+# Genera una nueva clave de aplicación para Laravel
+php artisan key:generate
+
+# Abre el archivo .env y configura tu base de datos en los siguientes valores
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=nombre_de_tu_base_de_datos
+# DB_USERNAME=tu_usuario
+# DB_PASSWORD=tu_contraseña
+
+# Ejecuta las migraciones para crear las tablas en la base de datos
+php artisan migrate
+
+# Si deseas poblar la base de datos con datos de prueba, ejecuta el seed
+php artisan db:seed
