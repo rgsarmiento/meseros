@@ -25,10 +25,14 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 
 ## Instalación
 
-# Clona el repositorio de GitLab
-git clone https://gitlab.com/tu-usuario/nombre-del-repositorio.git
+Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
 
-# Accede al directorio del proyecto
+### 1. Clona el repositorio de GitLab a tu máquina local:
+
+   ```bash
+   git clone https://gitlab.com/tu-usuario/nombre-del-repositorio.git
+
+# 2. Accede al directorio del proyecto
 cd nombre-del-repositorio
 
 # Instala las dependencias de PHP con Composer
