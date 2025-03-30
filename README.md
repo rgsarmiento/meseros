@@ -86,13 +86,16 @@ cp .env.example .env
 php artisan key:generate
 ```
 8. Abre el archivo .env y configura tu base de datos en los siguientes valores
+```bash
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
 # DB_DATABASE=meseros
 # DB_USERNAME=root
 # DB_PASSWORD=
-
+```
+9. Complementar la intalacion con los siguientes comandos:
+```bash
 # Ejecuta las migraciones para crear las tablas en la base de datos
 php artisan migrate --seed
 
