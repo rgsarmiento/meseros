@@ -23,53 +23,46 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 - **MySQL** (o cualquier otra base de datos compatible con Laravel)
 - **XAMPP** (si estás utilizando un entorno local de desarrollo)
 
-## Instalación
+# Configuración del Proyecto con XAMPP
 
-Instalación y Configuración de XAMPP
-Requisitos Previos
-Sistema Operativo: XAMPP está disponible para Windows, macOS y Linux.
+## Instalación y Configuración de XAMPP
 
-Espacio en Disco: Asegúrate de tener al menos 1GB de espacio disponible.
+XAMPP es una herramienta que permite instalar un servidor local que incluye Apache, MySQL, PHP y Perl. Es ideal para desarrollar aplicaciones web de manera local.
 
-1. Descargar XAMPP
-Visita la página oficial de XAMPP:
+### Paso 1: Descargar XAMPP
 
-https://www.apachefriends.org/es/index.html
+1. Dirígete al sitio oficial de XAMPP: [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html)
+2. Descarga la versión de XAMPP adecuada para tu sistema operativo:
+   - **Windows**
+   - **Linux**
+   - **macOS**
 
-Selecciona la versión de XAMPP adecuada para tu sistema operativo (Windows, macOS, o Linux).
+### Paso 2: Instalación de XAMPP
 
-2. Instalar XAMPP
-Una vez descargado el instalador, ábrelo para iniciar el proceso de instalación.
+1. Una vez descargado el archivo, ejecútalo y sigue las instrucciones del asistente de instalación.
+2. Selecciona los componentes que deseas instalar. Los componentes recomendados son:
+   - Apache
+   - MySQL
+   - PHP
+   - phpMyAdmin (para gestionar la base de datos)
 
-Elige los componentes que desees instalar. Los componentes esenciales incluyen:
+3. Completa el proceso de instalación.
 
-Apache (servidor web).
+### Paso 3: Iniciar XAMPP
 
-MySQL o MariaDB (base de datos).
+1. Abre el panel de control de XAMPP.
+2. Inicia los servicios de **Apache** y **MySQL** haciendo clic en el botón "Start" junto a cada uno.
+3. Para verificar que XAMPP está funcionando correctamente, abre tu navegador y ve a `http://localhost`. Deberías ver la página de bienvenida de XAMPP.
 
-PHP (lenguaje de programación).
+### Paso 4: Configurar el Proyecto
 
-Puedes desmarcar otros componentes si no los necesitas, como Perl, Mercury, etc.
+1. Coloca los archivos del proyecto en la carpeta `htdocs` dentro de la carpeta de instalación de XAMPP. Por defecto, en Windows es:
 
-Selecciona la carpeta de destino donde deseas instalar XAMPP (por defecto es C:\xampp en Windows).
+2. Clona tu repositorio dentro de esta carpeta o coloca el contenido del proyecto allí.
 
-Sigue las instrucciones del instalador y completa la instalación.
-
-3. Iniciar XAMPP
-Una vez instalado, abre el Panel de Control de XAMPP.
-
-Inicia los siguientes servicios:
-
-Apache: Servidor web para ejecutar aplicaciones PHP.
-
-MySQL: Base de datos para almacenar información.
-
-Puedes hacerlo simplemente haciendo clic en el botón Start correspondiente a cada servicio.
-
-Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
-
-Sigue estos pasos para clonar, configurar y ejecutar el proyecto en tu máquina local:
 ```bash
+cd C:\xampp\htdocs
+
 # 1. Clona el repositorio de GitLab a tu máquina local:
 git clone https://github.com/rgsarmiento/meseros.git meseros
 
