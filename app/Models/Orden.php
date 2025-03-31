@@ -7,6 +7,14 @@ use Illuminate\Support\Str;
 
 class Orden extends Model
 {
+
+
+    // Relación con la tabla orden_detalles
+    public function detalles()
+    {
+        return $this->hasMany(OrdenDetalle::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

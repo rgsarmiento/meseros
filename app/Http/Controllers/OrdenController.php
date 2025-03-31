@@ -262,4 +262,16 @@ class OrdenController extends Controller
             $mesa->save();
         }
     }
+
+    public function obtenerOrdenesPendientes()
+    {
+        // Obtener las órdenes con estado 'pendiente' o 'actualizar'
+        $ordenes = Orden::whereIn('estado', ['pendiente', 'actualizar'])
+            ->with('detalles') // Relación con los detalles
+            ->get();
+        
+        // Retornar las órdenes como JSON
+        return response()->json($ordenes);
+    }
+
 }

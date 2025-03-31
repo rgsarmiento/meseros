@@ -17,9 +17,9 @@ Esta es una aplicación de gestión de pedidos diseñada para restaurantes. Perm
 
 Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo siguiente:
 
-- **PHP >= 7.4**
+- **Git** [https://git-scm.com/downloads](https://git-scm.com/downloads)
 - **Composer** [https://getcomposer.org/](https://getcomposer.org/)
-- **Node.js y npm** (para gestionar las dependencias de frontend)[https://nodejs.org/es](https://nodejs.org/es)
+- **Node.js y npm** (para gestionar las dependencias de frontend) [https://nodejs.org/es](https://nodejs.org/es)
 - **XAMPP** (si estás utilizando un entorno local)
 
 # Configuración del Proyecto con XAMPP
