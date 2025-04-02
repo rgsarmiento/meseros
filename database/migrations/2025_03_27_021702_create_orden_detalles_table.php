@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orden_detalles', function (Blueprint $table) {
             $table->id();
+            $table->string('llave')->unique();
             $table->foreignId('orden_id')->constrained('ordens')->onDelete('cascade');
             $table->string('codigo_producto');
             $table->string('nombre_producto');

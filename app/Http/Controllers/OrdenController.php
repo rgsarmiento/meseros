@@ -274,4 +274,27 @@ class OrdenController extends Controller
         return response()->json($ordenes);
     }
 
+
+    public function actualizarEstadoPorLlave($llave, Request $request)
+    {
+        // Validamos que el estado sea válido
+        $request->validate([
+            'estado' => 'required|in:pendiente,actualizar,preparando,terminado,procesado',
+        ]);
+
+        // Buscar la orden por la llave
+        $orden = Orden::where('llave', $llave)->first();
+
+        if (!$orden) {
+            return response()->json(['message' => 'Orden no encontrada'], 404);
+        }
+
+        // Actualizar el estado de la orden
+        $orden->estado = $request->estado;
+        $orden->save();
+
+        return response()->json(['message' => 'Estado actualizado correctamente', 'orden' => $orden]);
+    }
+
+
 }

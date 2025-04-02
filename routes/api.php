@@ -10,3 +10,4 @@ Route::post('categorias/replace-all', [CategoriaController::class, 'replaceAll']
 Route::post('productos/replace-all', [ProductoController::class, 'replaceAll']);
 
 Route::get('/ordenes/pendientes', [OrdenController::class, 'obtenerOrdenesPendientes']);
+Route::put('/ordenes/{llave}/estado', [OrdenController::class, 'actualizarEstadoPorLlave']);
