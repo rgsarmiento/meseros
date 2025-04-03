@@ -69,7 +69,9 @@
                                         </div>
 
                                         <!-- Campo de Observación -->
-                                        <textarea name="observacion" style="resize: vertical; height: {{ !empty($producto['observacion']) ? '100px' : '50px' }};" placeholder="Observación"
+                                        <textarea name="observacion"
+                                            style="resize: vertical; height: {{ !empty($producto['observacion']) ? '100px' : '50px' }};"
+                                            placeholder="Observación"
                                             class="mt-2 bg-gray-50 border border-gray-300 rounded-lg p-2 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ $producto['observacion'] }}</textarea>
 
                                         <!-- Botón Actualizar -->
@@ -263,67 +265,73 @@
         }
 
 
-        document.querySelector('#guardarOrden').addEventListener('click', function(e) {
-            event.preventDefault(); // Evita que la página se recargue
+        document.querySelector('#guardarOrden').addEventListener('click', async function(event) {
+            event.preventDefault(); // Prevent form submission
 
-            // Selecciona el formulario correspondiente al producto
-            let form = document.querySelector('#frmConfirmarOrden');
+            try {
+                // Get form and CSRF token
+                const form = document.querySelector('#frmConfirmarOrden');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-            // Obtén el token CSRF desde la metaetiqueta
-            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                if (!form) {
+                    throw new Error('Formulario no encontrado');
+                }
 
-            // Crea un objeto FormData para manejar los datos del formulario
-            let formData = new FormData(form);
+                if (!csrfToken) {
+                    throw new Error('Token CSRF no encontrado');
+                }
 
-            // Realiza la petición AJAX usando Fetch
-            fetch('/admin/ordenes/confirmarGuardar', {
+                // Validate if a table is selected
+                const formData = new FormData(form);
+                if (!formData.get('mesa')) {
+                    throw new Error('Debe seleccionar una mesa');
+                }
+
+                // Make the API request
+                const response = await fetch('/admin/ordenes/confirmarGuardar', {
                     method: 'POST',
                     body: formData,
                     headers: {
                         'X-CSRF-TOKEN': csrfToken
                     }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        localStorage.removeItem('mesaSeleccionada'); // Borra un ítem específico
-
-                        Swal.fire({
-                            title: data.message,
-                            icon: "success",
-                            draggable: true
-                        }).then((result) => {                                                       
-                                // Redirigir a la página de creación de nueva orden
-                                window.location.href = data.redirect;
-                            
-                        });
-
-                        // Aquí puedes actualizar el carrito visualmente sin recargar la página                        
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: data.error,
-                            footer: 'Nodo'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    console.log(error);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: 'Debe seleccionar una mesa',
-                        footer: 'Nodo'
-                    });
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Error del servidor: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Clear selected table from localStorage
+                    localStorage.removeItem('mesaSeleccionada');
+
+                    // Show success message
+                    await Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        draggable: true
+                    });
+
+                    // Redirect to the new order page
+                    window.location.href = data.redirect;
+                } else {
+                    throw new Error(data.error || 'Error al procesar la orden');
+                }
+
+            } catch (error) {
+                console.error('Error al procesar la orden:', error);
+
+                // Show error message
+                await Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: error.message || 'Error al procesar la orden',
+                    footer: 'Por favor, intente nuevamente'
+                });
+            }
         });
+
 
 
 
