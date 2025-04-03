@@ -186,7 +186,7 @@ class OrdenController extends Controller
             if ($productoDB) {
                 OrdenDetalle::create([
                     'orden_id' => $orden->id,
-                    'codigo_producto' => $productoId, // Usar el producto_id correcto
+                    'codigo_producto' => $productoDB->codigo, // Usar el producto_id correcto
                     'nombre_producto' => $producto['nombre'],
                     'categoria_id' => $productoDB->categoria_id, // Acceder a la categoría desde la base de datos
                     'precio' => $producto['precio'],
