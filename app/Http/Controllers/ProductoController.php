@@ -16,8 +16,10 @@ class ProductoController extends Controller
     {
         // Obtener todos los productos de la base de datos
         $productos = Producto::with('categoria')->get();
-        return view('productos.index',
-        compact('productos'));
+        return view(
+            'productos.index',
+            compact('productos')
+        );
     }
 
     /**
@@ -49,34 +51,34 @@ class ProductoController extends Controller
 
     try {
         DB::beginTransaction();
-        
-        // 1. Eliminar todos los productos existentes antes de eliminar las categorías
-        Producto::query()->delete(); // Elimina todos los productos
-        
-        // 2. Insertar los nuevos productos
-        $productos = array_map(function($producto) {
+
+        // 1. Prepara los productos para la inserción o actualización
+        $productos = array_map(function ($producto) {
             return [
                 'id' => $producto['id'],
                 'codigo' => $producto['codigo'],
                 'nombre' => $producto['nombre'],
                 'precio' => $producto['precio'],
                 'categoria_id' => $producto['categoria_id'],
+                'updated_at' => now(),  // Para asegurar que se actualiza el campo `updated_at`
             ];
         }, $validated);
 
-        Producto::insert($productos);
-        
+        // 2. Usar upsert para insertar o actualizar los productos según el código
+        // 'codigo' es la clave única que definirá si el producto ya existe
+        Producto::upsert($productos, ['codigo'], ['id', 'nombre', 'precio', 'categoria_id', 'updated_at']);
+
         DB::commit();
-        
+
         return response()->json([
             'success' => true,
-            'message' => 'Productos reemplazados completamente',
+            'message' => 'Productos reemplazados correctamente',
             'count' => count($productos)
         ], 201);
-        
+
     } catch (\Exception $e) {
         DB::rollBack();
-        
+
         return response()->json([
             'success' => false,
             'message' => 'Error al reemplazar productos',
@@ -84,6 +86,7 @@ class ProductoController extends Controller
         ], 500);
     }
 }
+
 
 
 

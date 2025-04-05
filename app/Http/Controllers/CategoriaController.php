@@ -15,8 +15,10 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        return view('categorias.index',
-         compact('categorias'));
+        return view(
+            'categorias.index',
+            compact('categorias')
+        );
     }
 
     /**
@@ -30,16 +32,13 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        
-    }
+    public function store(Request $request) {}
 
 
 
     public function replaceAll(Request $request)
     {
-        // Valida los datos recibidos
+        // Validar los datos recibidos
         $validated = $request->validate([
             '*.id' => 'required|integer',
             '*.nombre' => 'required|string|max:255',
@@ -48,32 +47,28 @@ class CategoriaController extends Controller
 
         try {
             DB::beginTransaction();
-            
-            // 1. Eliminar todas las categorías existentes en lugar de truncar
-            Categoria::query()->delete(); // Elimina todas las filas de la tabla categorias
-            
-            // 2. Insertar las nuevas categorías
-            $categorias = array_map(function($categoria) {
-                return [
-                    'id' => $categoria['id'],
-                    'nombre' => $categoria['nombre'],
-                    'seccion_preparacion' => $categoria['seccion_preparacion'],
-                ];
-            }, $validated);
 
-            Categoria::insert($categorias);
-            
+            // Recorre cada categoría para insertarla o actualizarla
+            foreach ($validated as $categoria) {
+                Categoria::updateOrInsert(
+                    ['id' => $categoria['id']], // Condición para actualizar (si existe)
+                    [
+                        'nombre' => $categoria['nombre'],
+                        'seccion_preparacion' => $categoria['seccion_preparacion'],
+                    ]
+                );
+            }
+
             DB::commit();
-            
+
             return response()->json([
                 'success' => true,
-                'message' => 'Categorías reemplazadas completamente',
-                'count' => count($categorias)
+                'message' => 'Categorías insertadas o actualizadas correctamente',
+                'count' => count($validated)
             ], 201);
-            
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error al reemplazar categorías',
@@ -81,6 +76,7 @@ class CategoriaController extends Controller
             ], 500);
         }
     }
+
 
 
 
