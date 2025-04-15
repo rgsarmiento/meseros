@@ -84,43 +84,51 @@ class MesaController extends Controller
     }
 
 
-    public function liberarMesa($id)
-{
-    try {
-        DB::beginTransaction();
+    public function actualizarEstadoMesa(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
 
-        $mesa = Mesa::find($id);
+            $mesa = Mesa::find($id);
 
-        if (!$mesa) {
+            if (!$mesa) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Mesa no encontrada.',
+                ], 404);
+            }
+
+            // Validar el estado recibido
+            $request->validate([
+                'estado' => 'required|string'
+            ]);
+
+            $estado = $request->input('estado');
+
+            $mesa->estado = $estado;
+            $mesa->hora_estado = null;
+            $mesa->updated_at = now();
+            $mesa->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => "La mesa con ID {$id} ha sido actualizada a estado '{$estado}'.",
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
             return response()->json([
                 'success' => false,
-                'message' => 'Mesa no encontrada.',
-            ], 404);
+                'message' => 'Error al actualizar la mesa.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        $mesa->estado = 'libre';
-        $mesa->hora_estado = null;
-        $mesa->updated_at = now();
-        $mesa->save();
-
-        DB::commit();
-
-        return response()->json([
-            'success' => true,
-            'message' => "La mesa con ID {$id} ha sido liberada.",
-        ], 200);
-    } catch (\Exception $e) {
-        DB::rollBack();
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Error al liberar la mesa.',
-            'error' => $e->getMessage(),
-        ], 500);
     }
-}
 
-    
+
+
 
     public function liberarMesas()
     {
@@ -150,7 +158,7 @@ class MesaController extends Controller
             ], 500);
         }
     }
-    
+
     /**
      * Display the specified resource.
      */
