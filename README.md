@@ -20,23 +20,21 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 - **Git** [https://git-scm.com/downloads](https://git-scm.com/downloads)
 - **Composer** [https://getcomposer.org/](https://getcomposer.org/)
 - **Node.js y npm** (para gestionar las dependencias de frontend) [https://nodejs.org/es](https://nodejs.org/es)
-- **XAMPP** (si estás utilizando un entorno local)
+- **LARAGON** (si estás utilizando un entorno local)
 
 # Configuración del Proyecto con XAMPP
 
 ## Instalación y Configuración de XAMPP
 
-XAMPP es una herramienta que permite instalar un servidor local que incluye Apache, MySQL, PHP y Perl. Es ideal para desarrollar aplicaciones web de manera local.
+LARAGON es una herramienta que permite instalar un servidor local que incluye Apache, MySQL, PHP y Perl. Es ideal para desarrollar aplicaciones web de manera local.
 
-### Paso 1: Descargar XAMPP
+### Paso 1: Descargar LARAGON
 
-1. Dirígete al sitio oficial de XAMPP: [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html)
-2. Descarga la versión de XAMPP adecuada para tu sistema operativo:
-   - **Windows**
-   - **Linux**
-   - **macOS**
+1. Dirígete al sitio de LARAGON: [https://github.com/leokhoa/laragon/releases/tag/6.0.0](https://github.com/leokhoa/laragon/releases/tag/6.0.0)
+2. Descarga la versión completa (Full):
+   - **laragon-wamp.exe**
 
-### Paso 2: Instalación de XAMPP
+### Paso 2: Instalación de LARAGON
 
 1. Una vez descargado el archivo, ejecútalo y sigue las instrucciones del asistente de instalación.
 2. Selecciona los componentes que deseas instalar. Los componentes recomendados son:
@@ -47,11 +45,11 @@ XAMPP es una herramienta que permite instalar un servidor local que incluye Apac
 
 3. Completa el proceso de instalación.
 
-### Paso 3: Iniciar XAMPP
+### Paso 3: Iniciar LARAGON
 
-1. Abre el panel de control de XAMPP.
+1. Abre el panel de control de LARAGON.
 2. Inicia los servicios de **Apache** y **MySQL** haciendo clic en el botón "Start" junto a cada uno.
-3. Para verificar que XAMPP está funcionando correctamente, abre tu navegador y ve a `http://localhost`. Deberías ver la página de bienvenida de XAMPP.
+3. Para verificar que LARAGON está funcionando correctamente, abre tu navegador y ve a `http://localhost`. Deberías ver la página de bienvenida de LARAGON.
 
 ### Paso 4: Configurar el Proyecto
 
