@@ -175,6 +175,7 @@ public function store(Request $request)
             'total' => array_sum(array_map(function ($producto) {
                 return $producto['precio'] * $producto['cantidad'];
             }, $carrito)),
+            'fechahora' => now(),  // Establecer la fecha y hora actual
         ]);
 
         // Crear los detalles de la orden
