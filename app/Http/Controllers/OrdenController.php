@@ -8,6 +8,7 @@ use App\Models\Orden;
 use App\Models\OrdenDetalle;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrdenController extends Controller
 {
@@ -152,71 +153,73 @@ class OrdenController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        try {
-            $carrito = session()->get('carrito', []);
+   
+public function store(Request $request)
+{
+    try {
+        $carrito = session()->get('carrito', []);
 
-            if (empty($carrito)) {
-                return response()->json(['error' => 'El carrito está vacío'], 400);
-            }
-    
-            // Validar los datos de la orden
-            $request->validate([
-                'mesa' => 'required|string',
-            ]);
-    
-            // Crear la orden
-            $orden = Orden::create([
-                'mesa_id' => $request->input('mesa'),
-                'usuario_id' => auth()->user()->id,
-                'total' => array_sum(array_map(function ($producto) {
-                    return $producto['precio'] * $producto['cantidad'];
-                }, $carrito)),
-            ]);
-    
-    
-            // Crear los detalles de la orden
-            foreach ($carrito as $key => $producto) {
-                // Usar el producto_id desde los datos del carrito
-                $productoId = $producto['producto_id'];
-    
-                // Verificar que el producto existe en la base de datos antes de intentar acceder a la categoría
-                $productoDB = Producto::find($productoId);
-    
-                if ($productoDB) {
-                    OrdenDetalle::create([
-                        'orden_id' => $orden->id,
-                        'codigo_producto' => $productoDB->codigo, // Usar el producto_id correcto
-                        'nombre_producto' => $producto['nombre'],
-                        'categoria_id' => $productoDB->categoria_id, // Acceder a la categoría desde la base de datos
-                        'precio' => $producto['precio'],
-                        'cantidad' => $producto['cantidad'],
-                        'observacion' => $producto['observacion'],
-                    ]);
-                } else {
-                    // Manejar el caso en que el producto no se encuentra en la base de datos
-                    //Log::warning("Producto no encontrado: {$productoId}");
-                }
-            }
-    
-            $this->actualizarEstadoMesa($request->input('mesa'), 'ocupada');
-    
-    
-            // Vaciar el carrito
-            session()->forget('carrito');
-    
-            return response()->json([
-                'success' => true,
-                'message' => 'Orden guardada con éxito',
-                'orden_id' => $orden->id,
-                'redirect' => route('ordenes.create') // Enviar la URL de redirección
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al validar los datos de la orden: ' . $e->getMessage()], 400);
+        if (empty($carrito)) {
+            return response()->json(['error' => 'El carrito está vacío'], 400);
         }
-        
+
+        // Validar los datos de la orden
+        $request->validate([
+            'mesa' => 'required|string',
+        ]);
+
+        // Crear la orden
+        $orden = Orden::create([
+            'mesa_id' => $request->input('mesa'),
+            'usuario_id' => auth()->user()->id,
+            'total' => array_sum(array_map(function ($producto) {
+                return $producto['precio'] * $producto['cantidad'];
+            }, $carrito)),
+        ]);
+
+        // Crear los detalles de la orden
+        foreach ($carrito as $key => $producto) {
+            // Usar el producto_id desde los datos del carrito
+            $productoId = $producto['producto_id'];
+
+            // Verificar que el producto existe en la base de datos antes de intentar acceder a la categoría
+            $productoDB = Producto::find($productoId);
+
+            if ($productoDB) {
+                OrdenDetalle::create([
+                    'orden_id' => $orden->id,
+                    'codigo_producto' => $productoDB->codigo, // Usar el producto_id correcto
+                    'nombre_producto' => $producto['nombre'],
+                    'categoria_id' => $productoDB->categoria_id, // Acceder a la categoría desde la base de datos
+                    'precio' => $producto['precio'],
+                    'cantidad' => $producto['cantidad'],
+                    'observacion' => $producto['observacion'],
+                ]);
+            } else {
+                // Log para productos no encontrados
+                Log::warning("Producto no encontrado: {$productoId}");
+            }
+        }
+
+        $this->actualizarEstadoMesa($request->input('mesa'), 'ocupada');
+
+        // Vaciar el carrito
+        session()->forget('carrito');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Orden guardada con éxito',
+            'orden_id' => $orden->id,
+            'redirect' => route('ordenes.create') // Enviar la URL de redirección
+        ], 200);
+    } catch (\Exception $e) {
+        // Log del error detallado
+        Log::error('Error en el proceso de la orden: ' . $e->getMessage(), ['exception' => $e]);
+
+        return response()->json(['error' => 'Error al validar los datos de la orden: ' . $e->getMessage()], 400);
     }
+}
+
 
     /**
      * Display the specified resource.
