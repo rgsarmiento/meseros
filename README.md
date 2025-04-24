@@ -132,16 +132,16 @@ Para permitir que otros dispositivos en la red accedan a tu aplicación, primero
 1. Abre el archivo de configuración de hosts virtuales de Apache en tu instalación de XAMPP. Puedes encontrarlo en:
 
     ```bash
-    C:/xampp/apache/conf/extra/httpd-vhosts.conf
+    C:\laragon\bin\apache\httpd-2.4.54-win64-VS16\conf
     ```
 
-2. Edita el archivo `httpd-vhosts.conf` para agregar una entrada para tu proyecto:
+2. Edita el archivo `httpd.conf` para agregar una entrada para tu proyecto:
 
     ```apache
     <VirtualHost *:80>
-    DocumentRoot "C:/xampp/htdocs/meseros/public"
-    ServerName meseros.local
-    <Directory "C:/xampp/htdocs/meseros/public">
+    DocumentRoot "C:/laragon/www/meseros/public"
+    ServerName meseros.test
+    <Directory "C:/laragon/www/meseros/public">
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted

@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 
 class OrdenDetalle extends Model
 {
+    // Especificar el nombre de la tabla si no sigue la convención
+    protected $table = 'orden_detalles'; // Cambia 'ordenes' por el nombre de tu tabla
+
 
      // Relación inversa con la tabla ordens
      public function orden()

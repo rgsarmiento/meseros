@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 
 class Orden extends Model
 {
-
+    // Especificar el nombre de la tabla si no sigue la convención
+    protected $table = 'ordens'; // Cambia 'ordenes' por el nombre de tu tabla
 
     // Relación con la tabla orden_detalles
     public function detalles()
