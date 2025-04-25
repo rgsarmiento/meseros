@@ -22,9 +22,9 @@ Antes de instalar y ejecutar la aplicación, asegúrate de tener instalado lo si
 - **Node.js y npm** (para gestionar las dependencias de frontend) [https://nodejs.org/es](https://nodejs.org/es)
 - **LARAGON** (si estás utilizando un entorno local)
 
-# Configuración del Proyecto con XAMPP
+# Configuración del Proyecto con LARAGON
 
-## Instalación y Configuración de XAMPP
+## Instalación y Configuración de LARAGON
 
 LARAGON es una herramienta que permite instalar un servidor local que incluye Apache, MySQL, PHP y Perl. Es ideal para desarrollar aplicaciones web de manera local.
 
@@ -36,27 +36,36 @@ LARAGON es una herramienta que permite instalar un servidor local que incluye Ap
 
 ### Paso 2: Instalación de LARAGON
 
-1. Una vez descargado el archivo, ejecútalo y sigue las instrucciones del asistente de instalación.
-2. Selecciona los componentes que deseas instalar. Los componentes recomendados son:
-   - Apache
-   - MySQL
-   - PHP
-   - phpMyAdmin (para gestionar la base de datos)
-
-3. Completa el proceso de instalación.
+1. Una vez descargado el archivo, ejecútalo, selecciona el idioma y sigue las instrucciones del asistente de instalación.
 
 ### Paso 3: Iniciar LARAGON
 
 1. Abre el panel de control de LARAGON.
-2. Inicia los servicios de **Apache** y **MySQL** haciendo clic en el botón "Start" junto a cada uno.
+2. Inicia los servicios de **Apache** y **MySQL** haciendo clic en el botón "Iniciar Todo".
 3. Para verificar que LARAGON está funcionando correctamente, abre tu navegador y ve a `http://localhost`. Deberías ver la página de bienvenida de LARAGON.
 
-### Paso 4: Configurar el Proyecto
+### Paso 4: Cómo agregar una nueva versión de PHP en Laragon
 
-1. Coloca los archivos del proyecto en la carpeta `htdocs` dentro de la carpeta de instalación de XAMPP. Por defecto, en Windows es:
+1. Descarga el **.zip** de la versión de **PHP 8.2 (8.2.28)** desde el sitio oficial de PHP para Windows:
+    - URL de descarga:: [https://windows.php.net/download](https://windows.php.net/download)
+
+2. Extraer los archivos PHP en Laragon
+    - Una vez descargado el archivo comprimido (por ejemplo, **php-8.2.28-nts-Win32-vs16-x64.zip**), extrae su contenido.
+    - Copia la carpeta **php-8.2.28-nts-Win32-vs16-x64** en el directorio donde Laragon mantiene las versiones de PHP. La ruta predeterminada es: **C:\laragon\bin\php**
+
+3. Configurar Laragon para usar la nueva versión de PHP
+    - Abre Laragon.
+    - Click izquierdo en Laragon, para abrir el menú.
+    - Ve a "PHP" y luego selecciona la opción "Version".
+    - En el menú de versiones, deberías ver la opción para seleccionar PHP 8.2.28 (si todo está configurado correctamente).
+    - Recargar Apache
+
+### Paso 5: Configurar el Proyecto
+
+1. Arbrir la terminal de Laragon. Por defecto, se inicia en:
 
 ```bash
-cd C:\xampp\htdocs
+cd C:\Laragon\www
 ```
 
 2. Clona el repositorio de GitLab a tu máquina local:
@@ -92,24 +101,18 @@ php artisan key:generate
 # DB_USERNAME=root
 # DB_PASSWORD=
 ```
-9. Complementar la intalacion con los siguientes comandos:
+9. Ejecuta las migraciones para crear las tablas en la base de datos:
 ```bash
-# Ejecuta las migraciones para crear las tablas en la base de datos
 php artisan migrate --seed
+```
 
-# Limpiar caché de la configuración
-php artisan config:clear
+10. Limpia caché de la configuración, caché de rutas, view:clear, cache:clear
+```bash
+php artisan optimize:clear  
+```
 
-# Limpiar caché de rutas:
-php artisan route:clear
-
-# Limpiar caché de vistas:
-php artisan view:clear
-
-# Limpiar caché de la aplicación:
-php artisan cache:clear
-
-# Asignar permisos a las carpetas storage y bootstrap/cache:
+11. Asignar permisos a las carpetas storage y bootstrap/cache:
+```bash
 sudo chmod -R 775 storage
 sudo chmod -R 775 bootstrap/cache
 ```
