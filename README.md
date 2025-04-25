@@ -130,20 +130,20 @@ Para permitir que otros dispositivos en la red accedan a tu aplicación, primero
 
 2. En los resultados, busca la **Dirección IPv4** que debería ser algo como `192.168.1.100`. Esta será la IP que otros dispositivos usarán para acceder a la aplicación.
 
-## Paso 2: Configurar Apache en XAMPP
+## Paso 2: Configurar Apache en Laragon
 
-1. Abre el archivo de configuración de hosts virtuales de Apache en tu instalación de XAMPP. Puedes encontrarlo en:
+1. Abre el archivo de configuración de hosts virtuales de Apache en tu instalación de Laragon. Puedes encontrarlo en:
 
     ```bash
     C:\laragon\bin\apache\httpd-2.4.54-win64-VS16\conf
     ```
 
 2. Edita el archivo `httpd.conf` para agregar una entrada para tu proyecto:
-
+    - Busca la linea **# Virtual hosts** y debajo pegas lo siguiente:
     ```apache
     <VirtualHost *:80>
     DocumentRoot "C:/laragon/www/meseros/public"
-    ServerName meseros.test
+    ServerName meseros.local
     <Directory "C:/laragon/www/meseros/public">
         Options Indexes FollowSymLinks
         AllowOverride All
