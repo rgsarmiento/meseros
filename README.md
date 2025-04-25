@@ -60,7 +60,11 @@ LARAGON es una herramienta que permite instalar un servidor local que incluye Ap
     - En el menú de versiones, deberías ver la opción para seleccionar PHP 8.2.28 (si todo está configurado correctamente).
     - Recargar Apache
 
-### Paso 5: Configurar el Proyecto
+### Paso 5: Pasos para crear una base de datos desde Laragon
+
+1. Crear una base de datos **"meseros"** Elige el "Collation", (utf8mb4_spanish_ci)
+ 
+### Paso 6: Configurar el Proyecto
 
 1. Arbrir la terminal de Laragon. Por defecto, se inicia en:
 
@@ -116,6 +120,11 @@ php artisan optimize:clear
 sudo chmod -R 775 storage
 sudo chmod -R 775 bootstrap/cache
 ```
+12. Compila el frontend:
+```bash
+npm run build
+```
+
 # Configuración del Proyecto Meseros para Acceso en Red
 
 ## Paso 1: Obtener la Dirección IP Local
