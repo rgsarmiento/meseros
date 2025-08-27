@@ -43,7 +43,7 @@ class ProductoController extends Controller
     // Valida los datos recibidos
     $validated = $request->validate([
         '*.id' => 'required|integer',
-        '*.codigo' => 'required|string|unique:productos,codigo',
+        '*.codigo' => 'required|string',
         '*.nombre' => 'required|string|max:255',
         '*.precio' => 'required|numeric',
         '*.categoria_id' => 'required|exists:categorias,id', // Asegura que la categoría exista
