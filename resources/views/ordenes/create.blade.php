@@ -65,7 +65,7 @@
         </div>
 
 
-        <!-- Grilla de productos -->
+        <!-- Grilla de productos
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="productos-grid">
             @foreach ($productos as $producto)
                 <div class="producto-card w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
@@ -83,7 +83,43 @@
                     </div>
                 </div>
             @endforeach
+        </div>-->
+
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="productos-grid">
+    @foreach ($productos as $producto)
+        <div class="producto-card w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+            data-categoria-id="{{ $producto->categoria_id }}" 
+            data-nombre="{{ $producto->nombre }}"
+            data-codigo="{{ $producto->codigo }}" 
+            data-categoria="{{ $producto->categoria->nombre }}"
+            onclick="abrirModal({{ $producto }})">
+
+            <div class="px-2 pb-2">
+                {{-- Mostrar imagen si existe --}}
+                @php
+                    $rutaImagen = public_path("images/productos/{$producto->codigo}.png");
+                @endphp
+
+                @if (file_exists($rutaImagen))
+                    <img src="{{ asset("images/productos/{$producto->codigo}.png") }}" 
+                         alt="{{ $producto->nombre }}" 
+                         class="w-24 h-24 object-contain mx-auto mb-2">
+                @endif
+
+                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">
+                    {{ $producto->nombre }}
+                </h5>
+                <span
+                    class="text-fuchsia-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:text-fuchsia-600 ms-3">
+                    {{ $producto->categoria->nombre }}
+                </span>
+            </div>
         </div>
+    @endforeach
+</div>
+
+
+
     </div>
 
     <!-- Modal para agregar producto -->
