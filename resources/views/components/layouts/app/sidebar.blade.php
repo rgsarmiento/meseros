@@ -14,13 +14,7 @@
                 'icon'=>'plus',
                 'url'=>route('ordenes.create'),
                 'current'=>request()->routeIs('ordenes.*')
-            ],
-            [
-                'name'=>'Mis Ordenes',
-                'icon'=>'clipboard-document-list',
-                'url'=>route('categorias.index'),
-                'current'=>request()->routeIs('categorias.*'),
-            ],
+            ],            
 ],
 'Catalogos'=>[
             [
@@ -28,12 +22,6 @@
                 'icon'=>'puzzle-piece',
                 'url'=>route('productos.index'),
                 'current'=>request()->routeIs('productos.*')
-            ],
-            [
-                'name'=>'Categorias',
-                'icon'=>'funnel',
-                'url'=>route('categorias.index'),
-                'current'=>request()->routeIs('categorias.*'),
             ],
         ]
 ];
